@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import { BarExample, BarExample2 } from "./DemoChart";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 class ShowcaseLayout extends React.Component {
@@ -35,7 +36,9 @@ class ShowcaseLayout extends React.Component {
               Static - {i}
             </span>
           ) : (
-            <span className="text">{i}</span>
+            <span className="text">
+              {i} {l.useVictory ? <BarExample /> : <BarExample2 />}{" "}
+            </span>
           )}
         </div>
       );
@@ -107,7 +110,7 @@ class ShowcaseLayout extends React.Component {
 module.exports = ShowcaseLayout;
 
 function generateLayout() {
-  return _.map(_.range(0, 25), function(item, i) {
+  return _.map(_.range(0, 5), function(item, i) {
     var y = Math.ceil(Math.random() * 4) + 1;
     return {
       x: (_.random(0, 5) * 2) % 12,
@@ -115,7 +118,8 @@ function generateLayout() {
       w: 2,
       h: y,
       i: i.toString(),
-      static: Math.random() < 0.05
+      static: Math.random() < 0.05,
+      useVictory: Math.random() > 0.5
     };
   });
 }
